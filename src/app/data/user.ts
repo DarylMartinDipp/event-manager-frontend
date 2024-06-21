@@ -5,3 +5,5 @@ export interface User {
   password: string;
   created_at: Date;
 }
+
+export type UserCreateInput = Omit<User, "id" | "created_at">;
