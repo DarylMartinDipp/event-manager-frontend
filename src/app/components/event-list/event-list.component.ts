@@ -19,6 +19,6 @@ export class EventListComponent implements OnInit {
   private loadEvents(): void {
     this.eventService.getAllEvents().subscribe(events => {
       this.events = events;
-    })
+    });
   }
 }
