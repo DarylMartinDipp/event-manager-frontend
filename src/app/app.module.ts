@@ -8,11 +8,15 @@ import {HttpClientModule} from "@angular/common/http";
 import {CategoryService} from "./services/category.service";
 import {UserService} from "./services/user.service";
 import {EventService} from "./services/event.service";
+import {EventListComponent} from "./components/event-list/event-list.component";
+import {EventListItemComponent} from "./components/event-list-item/event-list-item.component";
 
 @NgModule({
   declarations: [
     AppComponent,
-    TopBarComponent
+    TopBarComponent,
+    EventListComponent,
+    EventListItemComponent
   ],
   imports: [
     BrowserModule,
