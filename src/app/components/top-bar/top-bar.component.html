@@ -1,0 +1,18 @@
+<nav class="navbar bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" [routerLink]="['/']">
+      <i class="bi bi-postcard"></i> Eas'Event
+    </a>
+    <form class="d-flex">
+      <button class="btn btn-light btn-sm m-2" type="button" [routerLink]="['/']">
+        <i class="bi bi-house-door"></i> Home
+      </button>
+      <button class="btn btn-light btn-sm m-2" type="button" [routerLink]="['/createEvent']">
+        <i class="bi bi-calendar-plus"></i> Create A New Event
+      </button>
+      <button class="btn btn-light btn-sm m-2" type="button" [routerLink]="['/profile']">
+        <i class="bi bi-person-circle"></i> My Profile
+      </button>
+    </form>
+  </div>
+</nav>
