@@ -1,0 +1,15 @@
+<div class="pt-4 pt-2" *ngIf="event">
+  <h3>{{event.title}}</h3>
+  <p>{{event.description}}</p>
+  <p>{{event.number_street}}</p>
+  <p>{{event.street}}</p>
+  <p>{{event.city}}</p>
+  <p>{{event.country}}</p>
+  <p>{{event.organizer.username}}</p>
+  <div>
+    <span class="badge rounded-pill text-bg-light">
+      {{event.category.name}}
+    </span>
+    <span>{{event.event_date}}</span>
+  </div>
+</div>
