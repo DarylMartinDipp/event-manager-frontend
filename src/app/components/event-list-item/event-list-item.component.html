@@ -5,10 +5,10 @@
   <p>{{event.street}}</p>
   <p>{{event.city}}</p>
   <p>{{event.country}}</p>
-  <p>{{event.organizer.username}}</p>
+  <p>{{event.organizer_id?.username}}</p>
   <div>
     <span class="badge rounded-pill text-bg-light">
-      {{event.category.name}}
+      {{event.category_id?.name}}
     </span>
     <span>{{event.event_date}}</span>
   </div>
