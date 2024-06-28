@@ -34,8 +34,8 @@ export class EventListItemComponent {
     '3bbb69d5-f832-4108-9d64-65f61bee61aa': 'https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', // Social & Networking
     '4126b1d4-e417-4ae3-8e25-210c180332fa': 'https://images.unsplash.com/photo-1551958219-acbc608c6377?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', // Sports & Recreation
     '1c6c18e3-bf43-4c7e-a92e-ff4a8b1b3571': 'https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=80&w=2020&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' // Technology & Innovation
-  }; 
-  
+  };
+
   getCategoryColor(category: any): string {
     return this.categoryColors[category.id] || '#007bff';
   }

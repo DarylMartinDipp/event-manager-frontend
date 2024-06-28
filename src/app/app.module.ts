@@ -16,7 +16,7 @@ import {EventListItemComponent} from "./components/event-list-item/event-list-it
     AppComponent,
     TopBarComponent,
     EventListComponent,
-    EventListItemComponent
+    EventListItemComponent,
   ],
   imports: [
     BrowserModule,
