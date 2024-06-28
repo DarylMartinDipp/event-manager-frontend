@@ -10,12 +10,12 @@ export interface Event {
   city: string;
   country: string;
   event_date: Date;
-  organizer: User;
-  category: Category;
+  organizer_id: User;
+  category_id: Category;
   created_at: Date;
 }
 
-export type EventCreateInput = Omit<Event, "id" | "organizer" | "category"> & {
-  organizer_id: string;
-  category_id: string;
+export type EventCreateInput = Omit<Event, "id" | "organizer_id" | "category_id"> & {
+  organizerId: string;
+  categoryId: string;
 };

@@ -1,3 +1,7 @@
+.events-container {
+  margin-top: 20px;
+}
+
 .no-events {
   padding: 20px;
   background-color: #f8f9fa;
