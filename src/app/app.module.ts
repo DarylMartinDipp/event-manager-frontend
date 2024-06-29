@@ -11,7 +11,9 @@ import {EventService} from "./services/event.service";
 import {EventListComponent} from "./components/event-list/event-list.component";
 import {EventListItemComponent} from "./components/event-list-item/event-list-item.component";
 import {CreateEventComponent} from "./components/create-event/create-event.component";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {SignInUserComponent} from "./components/sign-in-user/sign-in-user.component";
+import {LayoutComponent} from "./components/layout/layout.component";
 
 @NgModule({
   declarations: [
@@ -20,12 +22,15 @@ import {ReactiveFormsModule} from "@angular/forms";
     EventListComponent,
     EventListItemComponent,
     CreateEventComponent,
+    SignInUserComponent,
+    LayoutComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
   ],
   providers: [
     CategoryService,

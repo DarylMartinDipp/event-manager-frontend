@@ -1,10 +1,13 @@
 <nav class="navbar bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" [routerLink]="['/']">
+    <a class="navbar-brand" [routerLink]="['/home']">
       <i class="bi bi-calendar-event"></i> Eas'Event
     </a>
+    <span class="navbar-text ms-auto me-3">
+      Hello, {{loggedUser?.username}}!
+    </span>
     <form class="d-flex">
-      <button class="btn btn-light btn-sm m-2" type="button" [routerLink]="['/']">
+      <button class="btn btn-light btn-sm m-2" type="button" [routerLink]="['/home']">
         <i class="bi bi-house-door"></i> Home
       </button>
       <button class="btn btn-light btn-sm m-2" type="button" [routerLink]="['/createEvent']">
@@ -12,6 +15,9 @@
       </button>
       <button class="btn btn-light btn-sm m-2" type="button" [routerLink]="['/profile']">
         <i class="bi bi-person-circle"></i> My Profile
+      </button>
+      <button class="btn btn-light btn-sm m-2" type="button" (click)="onLogOut()">
+        <i class="bi bi-box-arrow-right"></i> Log Out
       </button>
     </form>
   </div>

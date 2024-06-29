@@ -16,6 +16,16 @@ export class UserService {
     return this.http.get<User[]>(this.userURL);
   }
 
+  getUserByEmail(userEmail: string): Observable<User> {
+    return this.http.get<User>(`${this.userURL}/by-email`, { params: { userEmail: userEmail } })
+      .pipe(catchError(this.handleError<User>('getUserByEmail')));
+  }
+
+  getUserByUsername(username: string): Observable<User> {
+    return this.http.get<User>(`${this.userURL}/by-username`, { params: { username } })
+      .pipe(catchError(this.handleError<User>('getUserByUsername')));
+  }
+
   createUser(user: UserCreateInput) : Observable<User> {
     return this.http.post<User>(this.userURL, user);
   }
