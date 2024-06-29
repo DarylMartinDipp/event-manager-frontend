@@ -3,20 +3,20 @@
     <a class="navbar-brand" [routerLink]="['/home']">
       <i class="bi bi-calendar-event"></i> Eas'Event
     </a>
-    <span class="navbar-text ms-auto me-3">
-      Hello, {{loggedUser?.username}}!
+    <span *ngIf="loggedUser" class="navbar-text ms-auto me-3">
+      Hello, {{loggedUser.username}}!
     </span>
     <form class="d-flex">
-      <button class="btn btn-light btn-sm m-2" type="button" [routerLink]="['/home']">
+      <button class="btn btn-light btn-sm m-2" type="button" [routerLink]="['/home']" [disabled]="!loggedUser">
         <i class="bi bi-house-door"></i> Home
       </button>
-      <button class="btn btn-light btn-sm m-2" type="button" [routerLink]="['/createEvent']">
+      <button class="btn btn-light btn-sm m-2" type="button" [routerLink]="['/createEvent']" [disabled]="!loggedUser">
         <i class="bi bi-calendar-plus"></i> Create A New Event
       </button>
-      <button class="btn btn-light btn-sm m-2" type="button" [routerLink]="['/profile']">
+      <button class="btn btn-light btn-sm m-2" type="button" [routerLink]="['/profile']" [disabled]="!loggedUser">
         <i class="bi bi-person-circle"></i> My Profile
       </button>
-      <button class="btn btn-light btn-sm m-2" type="button" (click)="onLogOut()">
+      <button class="btn btn-light btn-sm m-2" type="button" (click)="onLogOut()" [disabled]="!loggedUser">
         <i class="bi bi-box-arrow-right"></i> Log Out
       </button>
     </form>
