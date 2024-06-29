@@ -11,9 +11,8 @@ export class TopBarComponent {
 
   constructor(private router: Router) {
     const localUser = localStorage.getItem('loggedUser');
-    if (localUser != null) {
-      this.loggedUser = JSON.parse(localUser)
-    }
+    if (localUser != null && localUser !== "undefined")
+      this.loggedUser = JSON.parse(localUser);
   }
 
   onLogOut() {
