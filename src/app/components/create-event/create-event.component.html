@@ -1,1 +1,98 @@
-<!--CreateEvent HTML-->
+<form [formGroup]="createEventForm"
+      (ngSubmit)="submitCreatedEvent()"
+      class="needs-validation p-3"
+      autocomplete="off">
+
+  <div class="mb-3">
+    <label for="eventTitleInput" class="form-label">Title:</label>
+    <input type="text" class="form-control" formControlName="eventTitle" id="eventTitleInput"
+           [class.is-invalid]="eventTitle.invalid && eventTitle.touched"
+           [class.is-valid]="eventTitle.valid && eventTitle.touched"/>
+    <div *ngIf="eventTitle?.invalid && eventTitle?.touched" class="invalid-feedback text-danger">
+      <div *ngIf="eventTitle?.errors?.['required']">The title is required.</div>
+      <div *ngIf="eventTitle?.errors?.['minlength']">The title must be at least 3 characters long.</div>
+      <div *ngIf="eventTitle?.errors?.['maxlength']">The title must not exceed 50 characters.</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="eventDescriptionInput" class="form-label">Description:</label>
+    <textarea type="text" class="form-control" formControlName="eventDescription" id="eventDescriptionInput"
+           [class.is-invalid]="eventDescription.invalid && eventDescription.touched"
+           [class.is-valid]="eventDescription.valid && eventDescription.touched"></textarea>
+    <div *ngIf="eventDescription?.invalid && eventDescription?.touched" class="invalid-feedback text-danger">
+      <div *ngIf="eventDescription?.errors?.['required']">The description is required.</div>
+      <div *ngIf="eventDescription?.errors?.['maxlength']">The description must not exceed 2000 characters.</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="eventCategorySelect" class="form-label">Category:</label>
+    <select type="text" class="form-control" formControlName="eventCategory" id="eventCategorySelect"
+            [class.is-invalid]="eventCategory.invalid && eventCategory.touched"
+            [class.is-valid]="eventCategory.valid && eventCategory.touched">
+      <option *ngFor="let category of categoriesAvailable" value="{{category.id}}">{{category.name}}</option>
+    </select>
+    <div *ngIf="eventCategory?.invalid && eventCategory?.touched" class="required-category-feedback text-danger">
+      <div *ngIf="eventCategory?.errors?.['required']">The category is required.</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="eventNumberStreetInput" class="form-label">Street number:</label>
+    <input type="text" class="form-control" formControlName="eventNumberStreet" id="eventNumberStreetInput"
+           (input)="onNumberStreetInput($event)"
+           [class.is-invalid]="eventNumberStreet.invalid && eventNumberStreet.touched"
+           [class.is-valid]="eventNumberStreet.valid && eventNumberStreet.touched"/>
+    <div *ngIf="eventNumberStreet?.invalid && eventNumberStreet?.touched" class="invalid-feedback text-danger">
+      <div *ngIf="eventNumberStreet?.errors?.['pattern']">The street number must be a valid number.</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="eventStreetInput" class="form-label">Street:</label>
+    <input type="text" class="form-control" formControlName="eventStreet" id="eventStreetInput"
+           [class.is-invalid]="eventStreet.invalid && eventStreet.touched"
+           [class.is-valid]="eventStreet.valid && eventStreet.touched"/>
+    <div *ngIf="eventStreet?.invalid && eventStreet?.touched" class="invalid-feedback text-danger">
+      <div *ngIf="eventStreet?.errors?.['required']">The street is required.</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="eventCityInput" class="form-label">City:</label>
+    <input type="text" class="form-control" formControlName="eventCity" id="eventCityInput"
+           [class.is-invalid]="eventCity.invalid && eventCity.touched"
+           [class.is-valid]="eventCity.valid && eventCity.touched"/>
+    <div *ngIf="eventCity?.invalid && eventCity?.touched" class="invalid-feedback text-danger">
+      <div *ngIf="eventCity?.errors?.['required']">The city is required.</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="eventCountrySelect" class="form-label">Country:</label>
+    <select class="form-control" formControlName="eventCountry" id="eventCountrySelect"
+            [class.is-invalid]="eventCountry.invalid && eventCountry.touched"
+            [class.is-valid]="eventCountry.valid && eventCountry.touched">
+      <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+    </select>
+    <div *ngIf="eventCountry?.invalid && eventCountry?.touched" class="required-country-feedback text-danger">
+      <div *ngIf="eventCountry?.errors?.['required']">The country is required.</div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="eventDateInput" class="form-label">Event Date:</label>
+    <input type="datetime-local" class="form-control" formControlName="eventDate" id="eventDateInput"
+           [class.is-invalid]="eventDate.invalid && eventDate.touched"
+           [class.is-valid]="eventDate.valid && eventDate.touched"/>
+    <div *ngIf="eventDate?.invalid && eventDate.touched" class="invalid-feedback text-danger">
+      <div *ngIf="eventDate?.errors?.['required']">The event date is required.</div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-end mt-3">
+    <button type="button" class="btn btn-outline-danger me-2" [routerLink]="['/']">Close</button>
+    <button type="submit" class="btn btn-success">Create the event</button>
+  </div>
+</form>
