@@ -83,6 +83,8 @@ export class SignInUserComponent {
                     () => this.router.navigate(['/home'])
                   );
 
+                  localStorage.setItem('loggedUser', JSON.stringify(user));
+
                   //Alert the user
                   Swal.fire({
                     position: "top-end",
@@ -114,7 +116,7 @@ export class SignInUserComponent {
         user => {
           if (user) {
             if (user.hashed_password === this.signInForm.get('hashed_password')!.value!) {
-              localStorage.setItem('loggedUser', JSON.stringify(user))
+              localStorage.setItem('loggedUser', JSON.stringify(user));
               this.router.navigate(['/home']);
               Swal.fire({
                 position: "top-end",
