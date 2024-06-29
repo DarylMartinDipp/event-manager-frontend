@@ -10,6 +10,8 @@ import {UserService} from "./services/user.service";
 import {EventService} from "./services/event.service";
 import {EventListComponent} from "./components/event-list/event-list.component";
 import {EventListItemComponent} from "./components/event-list-item/event-list-item.component";
+import {CreateEventComponent} from "./components/create-event/create-event.component";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -17,11 +19,13 @@ import {EventListItemComponent} from "./components/event-list-item/event-list-it
     TopBarComponent,
     EventListComponent,
     EventListItemComponent,
+    CreateEventComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [
     CategoryService,
