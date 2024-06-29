@@ -1,79 +1,79 @@
 .event-card {
-    background-color: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.event-card .card-body {
+  padding: 20px;
+}
+
+.event-card h3.card-title {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.event-card p.card-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #666;
+}
+
+.event-card ul.list-group {
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.event-card .list-group-item {
+  border: none;
+  padding: 10px 0;
+}
+
+.event-card .list-group-item strong {
+  font-weight: 600;
+  color: #333;
+}
+
+.event-card .event-category {
+  color: #fff;
+  font-size: 0.9rem;
+  padding: 5px 10px;
+  border-radius: 15px;
+}
+
+.card-img {
+  border-radius: 8px 0 0 8px;
+  object-fit: cover;
+  height: 100%;
+}
+
+@media (max-width: 768px) {
+  .event-card {
+    margin-bottom: 20px;
   }
-  
-  .event-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
+
   .event-card .card-body {
-    padding: 20px;
+    padding: 15px;
   }
-  
+
   .event-card h3.card-title {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-    color: #333;
+    font-size: 1.3rem;
   }
-  
+
   .event-card p.card-text {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #666;
+    font-size: 1rem;
   }
-  
-  .event-card ul.list-group {
-    padding-left: 0;
-    margin-bottom: 0;
-  }
-  
-  .event-card .list-group-item {
-    border: none;
-    padding: 10px 0;
-  }
-  
-  .event-card .list-group-item strong {
-    font-weight: 600;
-    color: #333;
-  }
-  
-  .event-card .event-category {
-    color: #fff;
-    font-size: 0.9rem;
-    padding: 5px 10px;
-    border-radius: 15px;
-  }
-  
+
   .card-img {
-    border-radius: 8px 0 0 8px;
-    object-fit: cover;
-    height: 100%;
+    border-radius: 8px 8px 0 0;
+    height: auto;
   }
-  
-  @media (max-width: 768px) {
-    .event-card {
-      margin-bottom: 20px;
-    }
-  
-    .event-card .card-body {
-      padding: 15px;
-    }
-  
-    .event-card h3.card-title {
-      font-size: 1.3rem;
-    }
-  
-    .event-card p.card-text {
-      font-size: 1rem;
-    }
-  
-    .card-img {
-      border-radius: 8px 8px 0 0;
-      height: auto;
-    }
-  }
+}
