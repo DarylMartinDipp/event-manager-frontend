@@ -22,7 +22,7 @@ export class UserService {
   }
 
   getUserByUsername(username: string): Observable<User> {
-    return this.http.get<User>(`${this.userURL}/by-username`, { params: { username } })
+    return this.http.get<User>(`${this.userURL}/by-username`, { params: { username: username } })
       .pipe(catchError(this.handleError<User>('getUserByUsername')));
   }
 

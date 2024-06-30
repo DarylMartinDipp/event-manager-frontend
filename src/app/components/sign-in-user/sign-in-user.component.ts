@@ -4,6 +4,7 @@ import {UserService} from "../../services/user.service";
 import {Router} from "@angular/router";
 import {UserCreateInput} from "../../data/user";
 import Swal from "sweetalert2";
+import {catchError, of} from "rxjs";
 
 @Component({
   selector: 'app-sign-in-user',
@@ -47,58 +48,80 @@ export class SignInUserComponent {
 
   onSignUp() {
     if (this.signUpForm.valid) {
+      let isEmailAvailable: boolean = false;
+      let isUsernameAvailable: boolean = false;
 
       // Check if the userEmail already exists
-      this.userService.getUserByEmail(this.signUpForm.get('userEmail')!.value!).subscribe(
-        user => {
-          if (user) {
-            Swal.fire({
-              position: "top-end",
-              icon: "error",
-              title: "Email already exists.",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-          } else {
-            // Check if the username already exists
-            this.userService.getUserByUsername(this.signUpForm.get('username')!.value!).subscribe(
-              user => {
-                if (user) {
-                  Swal.fire({
-                    position: "top-end",
-                    icon: "error",
-                    title: "Username already exists.",
-                    showConfirmButton: false,
-                    timer: 1500,
-                  });
-                } else {
-                  // Create the user
-                  const userToCreate: UserCreateInput = {
-                    userEmail: this.signUpForm.get('userEmail')!.value!,
-                    username: this.signUpForm.get('username')!.value!,
-                    hashed_password: this.signUpForm.get('hashed_password')!.value!,
-                  }
-
-                  this.userService.createUser(userToCreate).subscribe(
-                    () => this.router.navigate(['/home'])
-                  );
-
-                  localStorage.setItem('loggedUser', JSON.stringify(user));
-
-                  //Alert the user
-                  Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Welcome!",
-                    showConfirmButton: false,
-                    timer: 1500,
-                  });
-                }
+      this.userService.getUserByEmail(this.signUpForm.get('userEmail')!.value!).pipe(
+        catchError((error) => {
+          console.error("Error fetching user by email:", error);
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "An error occurred. Please try again.",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          return of(null);
+        })
+      ).subscribe(user => {
+        if (user) {
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Email already exists.",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        } else {
+          // Check if the username already exists
+          this.userService.getUserByUsername(this.signUpForm.get('username')!.value!).pipe(
+            catchError((error) => {
+              console.error("Error fetching user by username:", error);
+              Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "An error occurred. Please try again.",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              return of(null);
+            })
+          ).subscribe(user => {
+            if (user) {
+              Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "Username already exists.",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            } else {
+              // Create the user
+              const userToCreate: UserCreateInput = {
+                userEmail: this.signUpForm.get('userEmail')!.value!,
+                username: this.signUpForm.get('username')!.value!,
+                hashed_password: this.signUpForm.get('hashed_password')!.value!,
               }
-            )
-          }
+
+              this.userService.createUser(userToCreate).subscribe(
+                () => this.router.navigate(['/home'])
+              );
+
+              localStorage.setItem('loggedUser', JSON.stringify(userToCreate));
+
+              //Alert the user
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Welcome!",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          });
         }
-      )
+      });
     } else {
       Swal.fire({
         position: "top-end",
