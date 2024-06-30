@@ -1,6 +1,6 @@
-import {Component, OnInit} from "@angular/core";
-import {Event} from "../../data/event";
-import {EventService} from "../../services/event.service";
+import { Component, OnInit } from "@angular/core";
+import { Event } from "../../data/event";
+import { EventService } from "../../services/event.service";
 
 @Component({
   selector: 'app-event-list',
@@ -10,6 +10,7 @@ import {EventService} from "../../services/event.service";
 export class EventListComponent implements OnInit {
   events: Event[] = [];
   eventTitle: string = '';
+  eventCity: string = '';
 
   constructor(private eventService: EventService) {}
 
@@ -36,5 +37,25 @@ export class EventListComponent implements OnInit {
   clearSearch(): void {
     this.eventTitle = '';
     this.loadEvents('');
+  }
+
+  filterEventsByCity(): void {
+    if (this.eventCity.trim() !== '') {
+      this.loadEventsFiltered(this.eventCity);
+    } else {
+      // If no city is selected, clear the filter and load all events
+      this.clearFilter();
+    }
+  }
+
+  clearFilter(): void {
+    this.eventCity = '';
+    this.loadEvents('');
+  }
+
+  private loadEventsFiltered(eventCity: string) {
+    this.eventService.getEventsByCity(eventCity).subscribe(events => {
+      this.events = events;
+    });
   }
 }
