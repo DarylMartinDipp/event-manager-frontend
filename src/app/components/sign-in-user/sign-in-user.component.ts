@@ -107,7 +107,6 @@ export class SignInUserComponent {
 
               localStorage.setItem('loggedUser', JSON.stringify(userToCreate));
 
-              //Alert the user
               Swal.fire({
                 position: "top-end",
                 icon: "success",

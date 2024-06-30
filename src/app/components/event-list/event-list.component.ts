@@ -40,12 +40,10 @@ export class EventListComponent implements OnInit {
   }
 
   filterEventsByCity(): void {
-    if (this.eventCity.trim() !== '') {
+    if (this.eventCity.trim() !== '')
       this.loadEventsFiltered(this.eventCity);
-    } else {
-      // If no city is selected, clear the filter and load all events
+    else
       this.clearFilter();
-    }
   }
 
   clearFilter(): void {

@@ -105,7 +105,6 @@ export class CreateEventComponent implements OnInit {
     if (this.createEventForm.valid) {
       this.userService.getUserByEmail(this.loggedUser.email).subscribe(
         organizer => {
-          // Create the event
           const eventToCreate: EventCreateInput = {
             eventTitle: this.createEventForm.get("eventTitle")!.value!,
             eventDescription: this.createEventForm.get("eventDescription")!.value!,
@@ -117,12 +116,10 @@ export class CreateEventComponent implements OnInit {
             eventDate: new Date(this.createEventForm.get("eventDate")!.value!),
             organizerId: organizer.id,
           };
-          debugger;
           this.eventService.createEvent(eventToCreate).subscribe(
             () => this.router.navigate(['/home'])
           );
 
-          // Alert the user
           Swal.fire({
             position: "top-end",
             icon: "success",
