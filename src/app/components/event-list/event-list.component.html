@@ -1,3 +1,9 @@
+<div class="search-bar mb-4 d-flex align-items-center">
+  <input type="text" [(ngModel)]="eventTitle" placeholder="Search events by title" class="form-control me-2" />
+  <button (click)="searchEvents()" class="btn btn-primary me-2">Search</button>
+  <button (click)="clearSearch()" class="btn btn-danger">Clear</button>
+</div>
+
 <div *ngIf="events && events.length" class="events-container">
   <div *ngFor="let event of events">
     <app-event-list-item [event]="event"></app-event-list-item>

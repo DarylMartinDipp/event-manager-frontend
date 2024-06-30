@@ -9,16 +9,32 @@ import {EventService} from "../../services/event.service";
 })
 export class EventListComponent implements OnInit {
   events: Event[] = [];
+  eventTitle: string = '';
 
   constructor(private eventService: EventService) {}
 
   ngOnInit(): void {
-    this.loadEvents();
+    this.loadEvents('');
   }
 
-  private loadEvents(): void {
-    this.eventService.getAllEvents().subscribe(events => {
-      this.events = events;
-    });
+  private loadEvents(eventTitle: string): void {
+    if (eventTitle == '') {
+      this.eventService.getAllEvents('').subscribe(events => {
+        this.events = events;
+      });
+    } else {
+      this.eventService.getAllEvents(eventTitle).subscribe(events => {
+        this.events = events;
+      });
+    }
+  }
+
+  searchEvents(): void {
+    this.loadEvents(this.eventTitle);
+  }
+
+  clearSearch(): void {
+    this.eventTitle = ''; // Reset the input field
+    this.loadEvents('');
   }
 }

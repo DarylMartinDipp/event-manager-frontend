@@ -12,8 +12,9 @@ export class EventService {
 
   constructor(private http: HttpClient) {}
 
-  getAllEvents(): Observable<Event[]> {
-    return this.http.get<Event[]>(this.eventURL);
+  getAllEvents(eventTitle: string): Observable<Event[]> {
+    const params = eventTitle != '' ? { params: { eventTitle } } : {};
+    return this.http.get<Event[]>(this.eventURL, params);
   }
 
   createEvent(event: EventCreateInput) : Observable<Event> {
