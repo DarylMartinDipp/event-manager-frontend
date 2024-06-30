@@ -10,7 +10,12 @@
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
             <strong>Address: </strong>
-            <span>{{ event.number_street }} {{ event.street }}, {{ event.city }}, {{ event.country }}</span>
+            <span>
+              <ng-container *ngIf="event.number_street != '0'">
+                {{ event.number_street }}
+              </ng-container>
+              {{ event.street }}, {{ event.city }}, {{ event.country }}
+            </span>
           </li>
           <li class="list-group-item">
             <strong>Organizer: </strong>
