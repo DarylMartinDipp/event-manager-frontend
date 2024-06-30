@@ -7,6 +7,7 @@ import {Router} from "@angular/router";
 import {EventCreateInput} from "../../data/event";
 
 import Swal from 'sweetalert2'
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-create-event',
@@ -14,6 +15,8 @@ import Swal from 'sweetalert2'
   styleUrls: ['./create-event.component.css']
 })
 export class CreateEventComponent implements OnInit {
+  loggedUser: any;
+
   categoriesAvailable: Category[] = [];
   countries: string[] = [
     "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda",
@@ -49,8 +52,13 @@ export class CreateEventComponent implements OnInit {
     private formBuilder: FormBuilder,
     private categoryService: CategoryService,
     private eventService: EventService,
-    private router: Router
-  ) {}
+    private userService: UserService,
+    private router: Router,
+  ) {
+    const localUser = localStorage.getItem('loggedUser');
+    if (localUser != null && localUser !== "undefined")
+      this.loggedUser = JSON.parse(localUser);
+  }
 
   createEventForm = this.formBuilder.group({
     eventTitle: ['', {
@@ -95,30 +103,35 @@ export class CreateEventComponent implements OnInit {
 
   protected submitCreatedEvent(): void {
     if (this.createEventForm.valid) {
-      // Create the event
-      const eventToCreate: EventCreateInput = {
-        eventTitle: this.createEventForm.get("eventTitle")!.value!,
-        eventDescription: this.createEventForm.get("eventDescription")!.value!,
-        categoryId: this.createEventForm.get("eventCategory")!.value!,
-        eventNumberStreet: this.createEventForm.get("eventNumberStreet")!.value!,
-        eventStreet: this.createEventForm.get("eventStreet")!.value!,
-        eventCity: this.createEventForm.get("eventCity")!.value!,
-        eventCountry: this.createEventForm.get("eventCountry")!.value!,
-        eventDate: new Date(this.createEventForm.get("eventDate")!.value!),
-        organizerId: 'f90b4234-d9e6-404e-a176-8180dbff8483',
-      };
-      this.eventService.createEvent(eventToCreate).subscribe(
-        () => this.router.navigate(['/home'])
-      );
+      this.userService.getUserByEmail(this.loggedUser.userEmail).subscribe(
+        organizer => {
+          // Create the event
+          const eventToCreate: EventCreateInput = {
+            eventTitle: this.createEventForm.get("eventTitle")!.value!,
+            eventDescription: this.createEventForm.get("eventDescription")!.value!,
+            categoryId: this.createEventForm.get("eventCategory")!.value!,
+            eventNumberStreet: this.createEventForm.get("eventNumberStreet")!.value!,
+            eventStreet: this.createEventForm.get("eventStreet")!.value!,
+            eventCity: this.createEventForm.get("eventCity")!.value!,
+            eventCountry: this.createEventForm.get("eventCountry")!.value!,
+            eventDate: new Date(this.createEventForm.get("eventDate")!.value!),
+            organizerId: organizer.id,
+          };
+          debugger;
+          this.eventService.createEvent(eventToCreate).subscribe(
+            () => this.router.navigate(['/home'])
+          );
 
-      // Alert the user
-      Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "Event Submitted Successfully.",
-        showConfirmButton: false,
-        timer: 1500,
-      });
+          // Alert the user
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Event Submitted Successfully.",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      )
     } else {
       Swal.fire({
         position: "top-end",
