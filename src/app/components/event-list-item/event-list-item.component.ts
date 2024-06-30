@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, OnInit} from "@angular/core";
 import {Event} from "../../data/event";
 import {RegistrationService} from "../../services/registration.service";
 import {Registration} from "../../data/registration";
@@ -8,21 +8,45 @@ import {Registration} from "../../data/registration";
   templateUrl: './event-list-item.component.html',
   styleUrls: ['./event-list-item.component.css']
 })
-export class EventListItemComponent {
+export class EventListItemComponent implements OnInit {
   @Input()
   event!: Event;
 
+  registrations: Registration[] = [];
   registeredUsers: string[] = [];
+  isUserRegistered: boolean = false;
+  loggedUser: any;
 
   constructor(private registrationService: RegistrationService) {}
 
   ngOnInit(): void {
+    const localUser = localStorage.getItem('loggedUser');
+    if (localUser != null && localUser !== "undefined")
+      this.loggedUser = JSON.parse(localUser);
     this.loadRegistrations();
   }
 
   loadRegistrations(): void {
     this.registrationService.getRegistrationsByEventId(this.event.id).subscribe((registrations: Registration[]) => {
+      this.registrations = registrations;
       this.registeredUsers = registrations.map(registration => registration.user_id.username);
+      this.isUserRegistered = registrations.some(registration => registration.user_id.id === this.loggedUser.id);
+    });
+  }
+
+  registerUser(): void {
+    const registrationToCreate = { userId: String(this.loggedUser.id), eventId: this.event.id };
+    this.registrationService.createRegistration(registrationToCreate).subscribe(() => {
+      this.loadRegistrations();
+    });
+  }
+
+  unregisterUser(): void {
+    const registrationToDelete = this.registrations.find(
+      registration => registration.user_id.id === this.loggedUser.id
+    );
+    this.registrationService.deleteRegistration(registrationToDelete!).subscribe(() => {
+      this.loadRegistrations();
     });
   }
 
@@ -57,6 +81,6 @@ export class EventListItemComponent {
   }
 
   getCategoryImage(category: any): string {
-    return this.categoryImages[category.id] || 'path/to/default-image.jpg';
+    return this.categoryImages[category.id] || 'https://plus.unsplash.com/premium_photo-1675865395102-b803def0221f?q=80&w=1925&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
   }
 }
