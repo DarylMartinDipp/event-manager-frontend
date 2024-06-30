@@ -103,7 +103,7 @@ export class CreateEventComponent implements OnInit {
 
   protected submitCreatedEvent(): void {
     if (this.createEventForm.valid) {
-      this.userService.getUserByEmail(this.loggedUser.userEmail).subscribe(
+      this.userService.getUserByEmail(this.loggedUser.email).subscribe(
         organizer => {
           // Create the event
           const eventToCreate: EventCreateInput = {
