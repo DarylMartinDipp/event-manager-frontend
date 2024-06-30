@@ -1,5 +1,7 @@
 import {Component, Input} from "@angular/core";
 import {Event} from "../../data/event";
+import {RegistrationService} from "../../services/registration.service";
+import {Registration} from "../../data/registration";
 
 @Component({
   selector: 'app-event-list-item',
@@ -9,6 +11,20 @@ import {Event} from "../../data/event";
 export class EventListItemComponent {
   @Input()
   event!: Event;
+
+  registeredUsers: string[] = [];
+
+  constructor(private registrationService: RegistrationService) {}
+
+  ngOnInit(): void {
+    this.loadRegistrations();
+  }
+
+  loadRegistrations(): void {
+    this.registrationService.getRegistrationsByEventId(this.event.id).subscribe((registrations: Registration[]) => {
+      this.registeredUsers = registrations.map(registration => registration.user_id.username);
+    });
+  }
 
   categoryColors: { [key: string]: string } = {
     'd074dd98-d416-4c33-952f-2bcff3592c36': '#FF5733', // Arts & Culture
