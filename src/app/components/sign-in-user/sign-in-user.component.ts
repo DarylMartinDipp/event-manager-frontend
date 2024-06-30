@@ -48,9 +48,6 @@ export class SignInUserComponent {
 
   onSignUp() {
     if (this.signUpForm.valid) {
-      let isEmailAvailable: boolean = false;
-      let isUsernameAvailable: boolean = false;
-
       // Check if the userEmail already exists
       this.userService.getUserByEmail(this.signUpForm.get('userEmail')!.value!).pipe(
         catchError((error) => {
