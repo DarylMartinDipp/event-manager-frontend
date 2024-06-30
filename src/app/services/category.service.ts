@@ -10,7 +10,7 @@ export class CategoryService {
 
   constructor(private http: HttpClient) {}
 
-  getAllCategories() : Observable<Category[]> {
+  getAllCategories(): Observable<Category[]> {
     return this.http.get<Category[]>(this.categoriesURL);
   }
 
