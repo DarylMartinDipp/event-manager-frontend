@@ -17,6 +17,11 @@ export class EventService {
     return this.http.get<Event[]>(this.eventURL, params);
   }
 
+  getEventsByCity(eventCity: string): Observable<Event[]> {
+    return this.http.get<Event[]>(`${this.eventURL}/by-city`, { params: { eventCity: eventCity } })
+      .pipe(catchError(this.handleError<Event[]>('getEventsByCity')));
+  }
+
   createEvent(event: EventCreateInput) : Observable<Event> {
     return this.http.post<Event>(this.eventURL, event);
   }
