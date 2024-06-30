@@ -34,7 +34,7 @@ export class EventListComponent implements OnInit {
   }
 
   clearSearch(): void {
-    this.eventTitle = ''; // Reset the input field
+    this.eventTitle = '';
     this.loadEvents('');
   }
 }
