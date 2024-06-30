@@ -32,6 +32,19 @@
             <strong>Date: </strong>
             <span>{{ event.event_date }}</span>
           </li>
+          <li class="list-group-item">
+            <strong>Registered Users:</strong>
+            <div class="registered-users" *ngIf="registeredUsers.length > 0; else noUsers">
+              <span *ngFor="let user of registeredUsers" class="badge user-badge">
+                {{ user }}
+              </span>
+            </div>
+            <ng-template #noUsers>
+              <div class="no-users">
+                No registered users for now 😔
+              </div>
+            </ng-template>
+          </li>
         </ul>
       </div>
     </div>
