@@ -37,13 +37,20 @@
             <div class="registered-users" *ngIf="registeredUsers.length > 0; else noUsers">
               <span *ngFor="let user of registeredUsers" class="badge user-badge">
                 {{ user }}
-              </span>
+             </span>
             </div>
             <ng-template #noUsers>
               <div class="no-users">
                 No registered users for now 😔
               </div>
             </ng-template>
+
+            <button *ngIf="!isUserRegistered" (click)="registerUser()" class="btn btn-primary register-button">
+              Register
+            </button>
+            <button *ngIf="isUserRegistered" (click)="unregisterUser()" class="btn btn-danger unregister-button">
+              Unregister
+            </button>
           </li>
         </ul>
       </div>

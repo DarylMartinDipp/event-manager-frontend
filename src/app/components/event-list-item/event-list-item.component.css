@@ -102,3 +102,7 @@
   margin-top: 10px;
   color: #6c757d;
 }
+
+.register-button, .unregister-button {
+  margin-top: 10px;
+}
