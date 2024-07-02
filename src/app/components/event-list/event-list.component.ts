@@ -12,6 +12,7 @@ export class EventListComponent implements OnInit {
   eventTitle: string = '';
   eventCity: string = '';
   showUpcomingOnly: boolean = false;
+  isSearchingOrFiltering: boolean = false;
 
   constructor(private eventService: EventService) {}
 
@@ -29,25 +30,31 @@ export class EventListComponent implements OnInit {
   }
 
   searchEvents(): void {
+    this.isSearchingOrFiltering = (this.eventTitle.trim() !== '');
     this.loadEvents(this.eventTitle.trim());
   }
 
   clearSearch(): void {
     this.eventTitle = '';
+    this.isSearchingOrFiltering = false;
     this.loadEvents('');
   }
 
   filterEventsByCity(): void {
-    if (this.eventCity.trim() !== '')
+    if (this.eventCity.trim() !== '') {
+      this.isSearchingOrFiltering = true;
       this.eventService.getEventsByCity(this.eventCity).subscribe(events => {
         this.events = events;
       });
-    else
+    } else {
       this.clearFilter();
+      this.isSearchingOrFiltering = false;
+    }
   }
 
   clearFilter(): void {
     this.eventCity = '';
+    this.isSearchingOrFiltering = false;
     this.loadEvents('');
   }
 
