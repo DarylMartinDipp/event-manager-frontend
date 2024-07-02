@@ -11,6 +11,7 @@ export class EventListComponent implements OnInit {
   events: Event[] = [];
   eventTitle: string = '';
   eventCity: string = '';
+  showUpcomingOnly: boolean = false;
 
   constructor(private eventService: EventService) {}
 
@@ -19,19 +20,16 @@ export class EventListComponent implements OnInit {
   }
 
   private loadEvents(eventTitle: string): void {
-    if (eventTitle == '') {
-      this.eventService.getAllEvents('').subscribe(events => {
-        this.events = events;
-      });
-    } else {
+    if (this.showUpcomingOnly)
+      this.loadUpcomingEvents()
+    else
       this.eventService.getAllEvents(eventTitle).subscribe(events => {
         this.events = events;
       });
-    }
   }
 
   searchEvents(): void {
-    this.loadEvents(this.eventTitle);
+    this.loadEvents(this.eventTitle.trim());
   }
 
   clearSearch(): void {
@@ -41,7 +39,9 @@ export class EventListComponent implements OnInit {
 
   filterEventsByCity(): void {
     if (this.eventCity.trim() !== '')
-      this.loadEventsFiltered(this.eventCity);
+      this.eventService.getEventsByCity(this.eventCity).subscribe(events => {
+        this.events = events;
+      });
     else
       this.clearFilter();
   }
@@ -51,9 +51,16 @@ export class EventListComponent implements OnInit {
     this.loadEvents('');
   }
 
-  private loadEventsFiltered(eventCity: string) {
-    this.eventService.getEventsByCity(eventCity).subscribe(events => {
+  private loadUpcomingEvents(): void {
+    this.eventService.getUpcomingEvents().subscribe(events => {
       this.events = events;
     });
+  }
+
+  protected toggleUpcomingEvents(): void {
+    this.showUpcomingOnly = !this.showUpcomingOnly;
+    this.eventTitle = '';
+    this.eventCity = '';
+    this.loadEvents(this.eventTitle);
   }
 }

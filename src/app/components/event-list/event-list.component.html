@@ -10,6 +10,11 @@
   </div>
 </div>
 
+<div class="form-check form-switch ms-2">
+  <input class="form-check-input" type="checkbox" id="upcomingEvents" (change)="toggleUpcomingEvents()" />
+  <label class="form-check-label" for="upcomingEvents">Show Upcoming Events Only</label>
+</div>
+
 <div *ngIf="events && events.length" class="events-container">
   <div *ngFor="let event of events">
     <app-event-list-item [event]="event"></app-event-list-item>
