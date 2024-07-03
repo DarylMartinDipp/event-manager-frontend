@@ -52,6 +52,21 @@
               Unregister
             </button>
           </li>
+          <li class="list-group-item">
+            <strong>Feedbacks:</strong>
+            <div *ngIf="feedbacks.length > 0; else noFeedbacks">
+              <div *ngFor="let feedback of feedbacks" class="feedback">
+                <span class="badge user-badge">{{ feedback.user_id.username }}</span>
+                <p>{{ feedback.feedback }}</p>
+                <small class="feedback-rating">Rating: {{ feedback.rating }}</small>
+              </div>
+            </div>
+            <ng-template #noFeedbacks>
+              <div class="no-feedbacks">
+                No feedbacks yet 😔
+              </div>
+            </ng-template>
+          </li>
         </ul>
       </div>
     </div>

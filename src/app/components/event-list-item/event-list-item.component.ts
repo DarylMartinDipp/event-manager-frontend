@@ -2,6 +2,8 @@ import {Component, Input, OnInit} from "@angular/core";
 import {Event} from "../../data/event";
 import {RegistrationService} from "../../services/registration.service";
 import {Registration} from "../../data/registration";
+import {Feedback} from "../../data/feedback";
+import {FeedbackService} from "../../services/feedback.service";
 
 @Component({
   selector: 'app-event-list-item',
@@ -14,16 +16,21 @@ export class EventListItemComponent implements OnInit {
 
   registrations: Registration[] = [];
   registeredUsers: string[] = [];
+  feedbacks: Feedback[] = [];
   isUserRegistered: boolean = false;
   loggedUser: any;
 
-  constructor(private registrationService: RegistrationService) {}
+  constructor(
+    private registrationService: RegistrationService,
+    private feedbackService: FeedbackService,
+  ) {}
 
   ngOnInit(): void {
     const localUser = localStorage.getItem('loggedUser');
     if (localUser != null && localUser !== "undefined")
       this.loggedUser = JSON.parse(localUser);
     this.loadRegistrations();
+    this.loadFeedbacks();
   }
 
   loadRegistrations(): void {
@@ -31,6 +38,12 @@ export class EventListItemComponent implements OnInit {
       this.registrations = registrations;
       this.registeredUsers = registrations.map(registration => registration.user_id.username);
       this.isUserRegistered = registrations.some(registration => registration.user_id.id === this.loggedUser.id);
+    });
+  }
+
+  loadFeedbacks(): void {
+    this.feedbackService.getFeedbacksByEventId(this.event.id).subscribe((feedbacks: Feedback[]) => {
+      this.feedbacks = feedbacks;
     });
   }
 
