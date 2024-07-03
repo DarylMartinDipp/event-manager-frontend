@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from "@angular/core";
 import {Event} from "../../data/event";
 import {RegistrationService} from "../../services/registration.service";
 import {Registration} from "../../data/registration";
-import {Feedback} from "../../data/feedback";
+import {Feedback, FeedbackCreateInput} from "../../data/feedback";
 import {FeedbackService} from "../../services/feedback.service";
 
 @Component({
@@ -19,6 +19,10 @@ export class EventListItemComponent implements OnInit {
   feedbacks: Feedback[] = [];
   isUserRegistered: boolean = false;
   loggedUser: any;
+
+  newFeedbackText: string = '';
+  newFeedbackRating: string = '';
+  ratings: string[] = ['1', '2', '3', '4', '5'];
 
   constructor(
     private registrationService: RegistrationService,
@@ -44,6 +48,21 @@ export class EventListItemComponent implements OnInit {
   loadFeedbacks(): void {
     this.feedbackService.getFeedbacksByEventId(this.event.id).subscribe((feedbacks: Feedback[]) => {
       this.feedbacks = feedbacks;
+    });
+  }
+
+  submitFeedback(): void {
+    const newFeedback: FeedbackCreateInput = {
+      feedback: this.newFeedbackText,
+      rating: this.newFeedbackRating,
+      userId: this.loggedUser.id,
+      eventId: this.event.id
+    };
+
+    this.feedbackService.createFeedback(newFeedback).subscribe((feedback: Feedback) => {
+      this.feedbacks.push(feedback);
+      this.newFeedbackText = '';
+      this.newFeedbackRating = '';
     });
   }
 
