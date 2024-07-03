@@ -4,6 +4,7 @@ import {RegistrationService} from "../../services/registration.service";
 import {Registration} from "../../data/registration";
 import {Feedback, FeedbackCreateInput} from "../../data/feedback";
 import {FeedbackService} from "../../services/feedback.service";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-event-list-item',
@@ -58,19 +59,37 @@ export class EventListItemComponent implements OnInit {
   }
 
   submitFeedback(): void {
-    const newFeedback: FeedbackCreateInput = {
-      feedback: this.newFeedbackText,
-      rating: this.newFeedbackRating,
-      userId: this.loggedUser.id,
-      eventId: this.event.id
-    };
+    if (this.newFeedbackText !== '' && this.newFeedbackRating !== '') {
+      const newFeedback: FeedbackCreateInput = {
+        feedback: this.newFeedbackText,
+        rating: this.newFeedbackRating,
+        userId: this.loggedUser.id,
+        eventId: this.event.id
+      };
 
-    this.feedbackService.createFeedback(newFeedback).subscribe((feedback: Feedback) => {
-      this.feedbacks.push(feedback);
-      this.newFeedbackText = '';
-      this.newFeedbackRating = '';
-      this.hasUserSubmittedFeedback = true;
-    });
+      this.feedbackService.createFeedback(newFeedback).subscribe((feedback: Feedback) => {
+        this.feedbacks.push(feedback);
+        this.newFeedbackText = '';
+        this.newFeedbackRating = '';
+        this.hasUserSubmittedFeedback = true;
+      });
+
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Feedback Submitted Successfully.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } else {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Please Check Your Feedback Details.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
   }
 
   deleteFeedback(feedback: Feedback): void {
