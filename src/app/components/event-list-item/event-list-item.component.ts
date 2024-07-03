@@ -73,6 +73,12 @@ export class EventListItemComponent implements OnInit {
     });
   }
 
+  deleteFeedback(feedback: Feedback): void {
+    this.feedbackService.deleteFeedback(feedback).subscribe(() => {
+      this.loadFeedbacks();
+    });
+  }
+
   registerUser(): void {
     const registrationToCreate = { userId: String(this.loggedUser.id), eventId: this.event.id };
     this.registrationService.createRegistration(registrationToCreate).subscribe(() => {

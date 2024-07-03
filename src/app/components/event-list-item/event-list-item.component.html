@@ -59,6 +59,7 @@
                 <span class="badge user-badge">{{ feedback.user_id.username }}</span>
                 <p>{{ feedback.feedback }}</p>
                 <small class="feedback-rating">Rating: {{ feedback.rating }}</small>
+                <button *ngIf="feedback.user_id.id === loggedUser.id" (click)="deleteFeedback(feedback)" class="btn btn-danger btn-sm ml-2">Delete</button>
               </div>
             </div>
             <ng-template #noFeedbacks>
