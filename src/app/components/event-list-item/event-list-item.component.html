@@ -67,8 +67,7 @@
               </div>
             </ng-template>
 
-            <!-- Feedback form -->
-            <div *ngIf="isUserRegistered">
+            <div *ngIf="isUserRegistered && !hasUserSubmittedFeedback" class="feedback-form-container">
               <form (ngSubmit)="submitFeedback()" #feedbackForm="ngForm">
                 <div class="form-group">
                   <label for="feedback">Your Feedback:</label>
@@ -80,7 +79,7 @@
                     <option *ngFor="let rating of ratings" [value]="rating">{{ rating }}</option>
                   </select>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                <button type="submit" class="btn btn-primary submit-btn">Submit Feedback</button>
               </form>
             </div>
           </li>

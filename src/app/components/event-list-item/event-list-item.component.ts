@@ -20,6 +20,7 @@ export class EventListItemComponent implements OnInit {
   isUserRegistered: boolean = false;
   loggedUser: any;
 
+  hasUserSubmittedFeedback: boolean = false;
   newFeedbackText: string = '';
   newFeedbackRating: string = '';
   ratings: string[] = ['1', '2', '3', '4', '5'];
@@ -48,7 +49,12 @@ export class EventListItemComponent implements OnInit {
   loadFeedbacks(): void {
     this.feedbackService.getFeedbacksByEventId(this.event.id).subscribe((feedbacks: Feedback[]) => {
       this.feedbacks = feedbacks;
+      this.checkUserFeedback();
     });
+  }
+
+  checkUserFeedback(): void {
+    this.hasUserSubmittedFeedback = this.feedbacks.some(feedback => feedback.user_id.id === this.loggedUser.id);
   }
 
   submitFeedback(): void {
@@ -63,6 +69,7 @@ export class EventListItemComponent implements OnInit {
       this.feedbacks.push(feedback);
       this.newFeedbackText = '';
       this.newFeedbackRating = '';
+      this.hasUserSubmittedFeedback = true;
     });
   }
 
