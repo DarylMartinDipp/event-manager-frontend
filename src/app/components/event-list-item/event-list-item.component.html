@@ -69,7 +69,7 @@
             </ng-template>
 
             <div *ngIf="isUserRegistered && !hasUserSubmittedFeedback" class="feedback-form-container">
-              <form (ngSubmit)="submitFeedback()" #feedbackForm="ngForm">
+              <form (ngSubmit)="submitFeedback()">
                 <div class="form-group">
                   <label for="feedback">Your Feedback:</label>
                   <textarea id="feedback" class="form-control" [(ngModel)]="newFeedbackText" name="feedback" required></textarea>
