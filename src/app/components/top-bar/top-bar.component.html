@@ -13,9 +13,6 @@
       <button class="btn btn-light btn-sm m-2" type="button" [routerLink]="['/createEvent']" [disabled]="!loggedUser">
         <i class="bi bi-calendar-plus"></i> Create A New Event
       </button>
-      <button class="btn btn-light btn-sm m-2" type="button" [routerLink]="['/profile']" [disabled]="!loggedUser">
-        <i class="bi bi-person-circle"></i> My Profile
-      </button>
       <button class="btn btn-light btn-sm m-2" type="button" (click)="onLogOut()" [disabled]="!loggedUser">
         <i class="bi bi-box-arrow-right"></i> Log Out
       </button>
